@@ -18,7 +18,7 @@ app.use('/api/v1/tasks', tasks);
 app.use(notFound)
 app.use(errorHandlerMiddleware)
 // listen
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // wait for connection to the db to be established.
 const start = async ()=>{
