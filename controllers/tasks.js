@@ -37,7 +37,8 @@ const updateTask = asyncWrapper( async (req,res) => {
 
         const task = await Task.findOneAndUpdate({_id:taskID}, req.body, {
             new:true,  //returns new data back as result
-            runValidators:true // runs schema validator on update data
+            runValidators:true, // runs schema validator on update data
+            useFindAndModify:false
         });
 
         if(!task){
@@ -50,7 +51,7 @@ const updateTask = asyncWrapper( async (req,res) => {
 
 const deleteTask = asyncWrapper(async (req,res) => {
         const {id: taskID} = req.params;
-        const task = await Task.findOneAndDelete({_id:taskID})
+        const task = await Task.findOneAndDelete({_id:taskID}, {useFindAndModify:false})
         if(!task){
             return res.status(404).json({msg: `No task with id: ${taskID}`})
         }
